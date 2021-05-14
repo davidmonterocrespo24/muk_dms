@@ -541,7 +541,6 @@ class File(models.Model):
         with self.env.norecompute():
             for vals, ids in updates.items():
                 self.browse(ids).write(dict(vals))
-        self.recompute()
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):

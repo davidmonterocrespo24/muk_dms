@@ -196,7 +196,6 @@ class Directory(models.Model):
         with self.env.norecompute():
             for vals, ids in updates.items():
                 self.browse(ids).write(dict(vals))
-        self.recompute()
         
     #----------------------------------------------------------
     # Actions

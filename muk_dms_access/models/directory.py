@@ -90,8 +90,6 @@ class Directory(models.Model):
                 domain = [('id', 'child_of', self.ids)]
                 records = self.sudo().search(domain)
                 records.modified(['groups'])
-            if self.env.recompute and self.env.context.get('recompute', True):
-                records.recompute()
             return res  
         return super(Directory, self).write(vals)
         

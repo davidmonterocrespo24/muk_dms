@@ -142,11 +142,11 @@ class File(models.Model):
     @api.model
     def _get_attachments_from_files(self, file_ids, search_uid=None):
         if file_ids:
-            return self.env['ir.attachment'].sudo(search_uid or SUPERUSER_ID).search([
+            return self.env['ir.attachment'].with_user(search_uid or SUPERUSER_ID).search([
                 '&', ['store_document', 'in', file_ids],
                 '&', ('is_store_document_link', '=', False),
                 '|', ('res_field', '=', False), ('res_field', '!=', False)
-            ]).sudo(self.env.uid)
+            ]).with_user(self.env.uid)
         return self.env['ir.attachment']
     
     def _get_attachments_with_no_access(self, operation, file_ids):
