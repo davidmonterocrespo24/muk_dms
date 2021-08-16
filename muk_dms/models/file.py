@@ -315,7 +315,7 @@ class File(models.Model):
     def _compute_path(self):
         records_with_directory = self - self.filtered(lambda rec: not rec.directory)
         updated = self.env['muk_dms.file']
-        if records_with_directory:
+        if records_with_directory and records_with_directory.ids:
             paths = [list(map(int, rec.directory.parent_path.split('/')[:-1])) for rec in records_with_directory]
             model = self.env['muk_dms.directory'].with_context(dms_directory_show_path=False)
             directories = model.browse(set(functools.reduce(operator.concat, paths)))
